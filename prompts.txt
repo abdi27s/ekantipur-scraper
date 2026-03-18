@@ -2,4 +2,5 @@
 2. Lazy loading
     In task 1, when fetching 5 articles, 2-3 articles were fetching image url as null. Then i used ai to tackle the issue
     which suggested to scroll the page to trigger lazy loading and also to wait_for_timeout().
-3.
+3. Also the AI helped in understanding the workflow of the task and the reasons for each lines of code.
+4. Lastly also asked cursor to verify the code if it follows playright conventions and implemented its suggestions.
