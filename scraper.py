@@ -51,23 +51,33 @@ with sync_playwright() as p:
         page.click("a:has-text('कार्टुन')")
         page.wait_for_load_state("networkidle")
         # Selecting the first cartoon element using the appropriate selector
-        cartoon_img = page.locator(".cartoon-wrapper").first
-        img = cartoon_img.locator(".cartoon-image figure a img")
-        # retriving image url
+        cartoon_element = page.locator(".cartoon-wrapper").first
+        img = cartoon_element.locator(".cartoon-image figure a img")
+
+        # Safe defaults in case selectors don't match.
+        cartoon_image = None
+        text = ""
+        cartoon_title = None
+        cartoon_author = None
+
+        # Retrieving image url
         if img.count():
             cartoon_image = img.get_attribute("src")
-        # selecting the description from the cartoon element
-        description_element = cartoon_img.locator(".cartoon-description p").first
-        # retriving the description text
+
+        # Selecting the description from the cartoon element
+        description_element = cartoon_element.locator(".cartoon-description p").first
+        # Retrieving the description text
         if description_element.count():
             text = description_element.inner_text().strip()
-        # separating text and author since the description had both author and title merged
+
+        # Separating text and author since the description had both author and title merged
         if "-" in text:
-            parts = text.split("-")
+            # Split into two parts only (title - author), in case title contains '-'
+            parts = text.split("-", 1)
             cartoon_title = parts[0].strip()
             cartoon_author = parts[1].strip()
         else:
-            cartoon_title = text
+            cartoon_title = text if text else None
             cartoon_author = None
 
         cartoon_of_the_day = {
