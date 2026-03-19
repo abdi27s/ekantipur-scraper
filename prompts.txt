@@ -1,4 +1,4 @@
-1. Cursor AI assistant was mainly used for autocomplete purpose.
+1. Cursor AI assistant was mainly used for syntax, code autocomplete purpose.
 2. Lazy loading
     In task 1, when fetching 5 articles, 2-3 articles were fetching image url as null. Then i used ai to tackle the issue
     which suggested to scroll the page to trigger lazy loading and also to wait_for_timeout().

@@ -12,7 +12,7 @@ with sync_playwright() as p:
 
         #********** task 1************
         # clicking on button with text मनोरञ्जन on navbar
-        page.click("a:has-text('मनोरञ्जन')")
+        page.click(".bottom-nav .bottom-nav-inside-wrapper .bottom-nav-wrap a:has-text('मनोरञ्जन')")
         # wait until the page loads (no network activity)
         page.wait_for_load_state("networkidle")
 
@@ -50,8 +50,11 @@ with sync_playwright() as p:
         # click cartoon
         page.click("a:has-text('कार्टुन')")
         page.wait_for_load_state("networkidle")
+        #due to lazy loading the url was not being fetched in few cases so used timeout to wait 1 sec before proceeding
+        page.wait_for_timeout(1000)
         # Selecting the first cartoon element using the appropriate selector
         cartoon_element = page.locator(".cartoon-wrapper").first
+        #using locator to select img selector 
         img = cartoon_element.locator(".cartoon-image figure a img")
 
         # Safe defaults in case selectors don't match.
